@@ -21,8 +21,8 @@
   /* Hero sizing — percentage-based */
   --hero-tagline-col: 11%;
   --hero-logo-width: 100%;
-  --hero-logo-max: min(1000px, 92vw);
-  /* Increased from 820px to make the logo larger */
+  --hero-logo-max: min(920px, 85vw);
+  /* Adjust the 850px value above if you want it larger or smaller! */
   --hero-badge-width: 22%;
   --hero-badge-top: 4%;
   --hero-badge-left: 14%;
@@ -30,7 +30,7 @@
   --hero-tagline-gap: clamp(0.3rem, calc(100vw / 90), 0.9rem);
   --hero-tagline-right: -8%;
   --hero-tagline-top: 20%;
-  --hero-center-offset: -5%;
+  --hero-center-offset: -2%;
   /* Moved from -10% to 0% to push the entire logo down */
   --hero-inner-scale: 0.72;
   --hero-inner-max-height: 62vh;
@@ -38,7 +38,7 @@
   /* Changed from -14vh to 0vh to stop it from sucking the banner up! */
   --tagline-gold: #fbfa9a;
 
-  --logo-banner-gap: 26vh;
+  --logo-banner-gap: 20vh;
   /* Control the gap between the main logo and the banner here */
 
   /* Cloud Sparkle settings */
@@ -58,7 +58,7 @@
   --sparkle-width: 45%;
 
   --sub-header-offset: 2.5%;
-  --sub-header-width: 92%;
+  --sub-header-width: 98%;
 }
 
 html {
@@ -97,7 +97,7 @@ a {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   object-position: center top;
   z-index: 0;
   pointer-events: none;
@@ -496,9 +496,9 @@ a {
   position: relative;
   z-index: 3;
   width: var(--sub-header-width);
-  max-width: 1100px;
+  max-width: 1700px;
   /* Now that we removed the negative pull from the logo, a normal margin works perfectly to create the gap */
-  margin: var(--logo-banner-gap) auto 4%;
+  margin: var(--logo-banner-gap) auto 10%;
   overflow: visible;
 }
 
@@ -507,9 +507,10 @@ a {
   justify-content: center;
   align-items: center;
   width: 100%;
-  aspect-ratio: 8 / 1;
-  /* Increased side padding to 15% to keep text away from the swirls */
-  padding: 4% 15%;
+  aspect-ratio: 18 / 1;
+  /* Changed to 18/1 to make the button even thinner/shorter */
+  /* Adjusted top/bottom padding to match the new thinner height */
+  padding: 1.5% 15%;
   background-image: url('images/banner-bg.png');
   background-size: 100% 100%;
   background-position: center;
@@ -518,8 +519,8 @@ a {
 
 .sub-header-text {
   font-family: "Noto Serif JP", serif;
-  /* Reduced font size so it fits perfectly */
-  font-size: clamp(0.9rem, 2.6vw, 2.2rem);
+  /* Decreased font size for a sleeker look */
+  font-size: clamp(1.0rem, 3.0vw, 2.8rem);
   font-weight: 700;
   letter-spacing: 0.15em;
   background: linear-gradient(180deg, #fffdf2 0%, #fceda8 30%, #e0bc36 60%, #fff7ce 100%);
@@ -529,6 +530,9 @@ a {
   color: transparent;
   filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.9));
   white-space: nowrap;
+
+  /* Use this to shift the text left or right to manually center it inside the banner art! */
+  transform: translateX(9px);
 }
 
 /* ── Hall Grid ── */
