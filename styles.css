@@ -58,7 +58,51 @@
   --sparkle-width: 45%;
 
   --sub-header-offset: 2.5%;
-  --sub-header-width: 98%;
+
+  /* --- Main Banner Button Settings --- */
+  /* Adjust width and max-width to control the button's width */
+  --sub-header-width: 100%;
+  --sub-header-max-width: 1900px;
+  /* IMPORTANT: If you increase the width and want to keep the height the same, increase the aspect ratio (e.g., to 22 / 1 or 24 / 1) */
+  --sub-header-aspect-ratio: 24 / 1;
+  /* Font size for the text inside the banner */
+  --sub-header-font-size: clamp(1.2rem, 3.5vw, 2.7rem);
+
+  /* --- Red Banner Settings --- */
+  --hall-banner-font-size: 1.5rem;
+  --hall-banner-padding-y: 12px;
+  /* Adjust vertical padding here */
+  --hall-banner-padding-x: 24px;
+  /* Adjust horizontal padding here */
+  --hall-banner-letter-spacing: 0.001em;
+  /* Adjust how tightly packed the text is (e.g., 0em for normal, -0.02em for very tight) */
+
+  /* --- Yellow Button Settings --- */
+  --hall-btn-font-size: 1.8rem;
+  /* Increased font size */
+  --hall-btn-padding-y: 5px;
+  /* Tweak this to prevent the button from getting too tall */
+  --hall-btn-padding-x: 16px;
+  --hall-btn-arrow-size: 28px;
+  /* Size of the black arrow */
+  --hall-btn-arrow-gap: 20px;
+  /* Separation between text and arrow */
+  --hall-btn-border-outer-width: 2px;
+  /* Outer light gold border width */
+  --hall-btn-border-outer-color: #ffea8a;
+  /* Outer light gold color */
+  --hall-btn-border-inner-width: 1px;
+  /* Inner thin black border width */
+  --hall-btn-border-inner-color: #333333;
+  /* Inner grayish black color */
+  --hall-btn-bg-top: #ffea8a;
+  /* Top half bright yellow */
+  --hall-btn-bg-mid: #f5c038;
+  /* Middle top */
+  --hall-btn-bg-bottom-start: #eab015;
+  /* Bottom half start (less dark) */
+  --hall-btn-bg-bottom-end: #cc9900;
+  /* Bottom half end */
 
   /* Hall Card Button Sparkle settings */
   /* Increase or decrease this size! */
@@ -526,7 +570,7 @@ a {
   position: relative;
   z-index: 3;
   width: var(--sub-header-width);
-  max-width: 1700px;
+  max-width: var(--sub-header-max-width);
   /* Now that we removed the negative pull from the logo, a normal margin works perfectly to create the gap */
   margin: var(--logo-banner-gap) auto 10%;
   overflow: visible;
@@ -537,7 +581,7 @@ a {
   justify-content: center;
   align-items: center;
   width: 100%;
-  aspect-ratio: 18 / 1;
+  aspect-ratio: var(--sub-header-aspect-ratio);
   /* Changed to 18/1 to make the button even thinner/shorter */
   /* Adjusted top/bottom padding to match the new thinner height */
   padding: 1.5% 15%;
@@ -550,7 +594,7 @@ a {
 .sub-header-text {
   font-family: "Noto Serif JP", serif;
   /* Decreased font size for a sleeker look */
-  font-size: clamp(1.0rem, 3.0vw, 2.8rem);
+  font-size: var(--sub-header-font-size);
   font-weight: 700;
   letter-spacing: 0.15em;
   background: linear-gradient(180deg, #fffdf2 0%, #fceda8 30%, #e0bc36 60%, #fff7ce 100%);
@@ -570,7 +614,7 @@ a {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   /* Increased gap to accommodate the negative frame inset */
   gap: 48px 44px;
   padding: 0 12px;
@@ -747,18 +791,22 @@ a {
   /* Uses variable so the width of the red rectangle can be adjusted */
   margin: 0 var(--hall-banner-inset);
   /* Inset from the card edges to leave room for swallowtails */
-  padding: 8px 24px;
-  /* Reverted vertical padding to original height */
-  background: linear-gradient(180deg, var(--red-banner) 0%, var(--red-deep) 100%);
+  padding: var(--hall-banner-padding-y) var(--hall-banner-padding-x);
+  /* Horizontal gradient: blackish-red at left/right edges, pure red in the center */
+  background: linear-gradient(90deg, #4d0000 0%, #bd0000 50%, #4d0000 100%);
   border: 2px solid transparent;
-  border-image: linear-gradient(180deg, #ffe566 0%, #d4af37 20%, #8b6914 50%, #d4af37 80%, #ffe566 100%) 1;
+  border-image: linear-gradient(180deg, #ffeba8 0%, #d4af37 30%, #8b6914 60%, #ffe566 100%) 1;
+  /* Removed the black inset shadow, using a soft gold glow instead */
   box-shadow: inset 0 0 8px rgba(212, 175, 55, 0.4);
   text-align: center;
-  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
-  /* Increased font size */
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-size: var(--hall-banner-font-size);
+  /* Configurable via root variables */
+  font-family: "Yu Mincho", "MS PMincho", "Hiragino Mincho Pro", "Noto Serif JP", serif;
+  /* Cursive-style Japanese serif font */
+  font-weight: 900;
+  letter-spacing: var(--hall-banner-letter-spacing);
   color: #fff;
+  /* Clean, subtle drop shadow without heavy black */
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   line-height: 1.4;
   z-index: 2;
@@ -798,12 +846,11 @@ a {
 .hall-name::before {
   content: "";
   position: absolute;
-  top: 14px;
-  /* Reverted to match the original banner height */
+  top: 2px;
+  /* Much closer to the top to eliminate the staircase gap */
   left: 0;
-  /* Flush with the inner card edge */
-  bottom: -10px;
-  /* Made ribbon shorter in height */
+  bottom: -6px;
+  /* Just a small fold at the bottom */
   width: 24px;
   border: 2px solid transparent;
   background-image:
@@ -823,11 +870,11 @@ a {
 .hall-name::after {
   content: "";
   position: absolute;
-  top: 14px;
-  /* Reverted to match the original banner height */
+  top: 2px;
+  /* Much closer to the top to eliminate the staircase gap */
   right: 0;
-  bottom: -10px;
-  /* Made ribbon shorter in height */
+  bottom: -6px;
+  /* Just a small fold at the bottom */
   width: 24px;
   border: 2px solid transparent;
   background-image:
@@ -848,21 +895,20 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
   margin: 12px 44px 8px;
   /* Increased left/right margin to make it noticeably less wide */
-  padding: 8px 16px;
-  /* Decreased vertical padding for a sleek premium look */
-  background: linear-gradient(180deg, #e6c553 0%, #8b6914 100%);
-  /* Golden boundary */
+  padding: var(--hall-btn-padding-y) var(--hall-btn-padding-x);
+  /* Outer golden boundary */
+  background: var(--hall-btn-border-outer-color);
   clip-path: polygon(14px 0, calc(100% - 14px) 0,
       100% 14px, 100% calc(100% - 14px),
       calc(100% - 14px) 100%, 14px 100%,
       0 calc(100% - 14px), 0 14px);
-  font-size: 1.35rem;
+  font-family: "Yu Mincho", "MS PMincho", "Hiragino Mincho Pro", "Noto Serif JP", serif;
+  /* Cursive-style Japanese serif font */
+  font-size: var(--hall-btn-font-size);
   /* Increased font size */
-  font-weight: 800;
-  /* Decreased font weight to 800 */
+  font-weight: 900;
   color: #1a1100;
   /* Matching dark brown for text */
   letter-spacing: 0.1em;
@@ -877,33 +923,36 @@ a {
 .hall-btn::before {
   content: "";
   position: absolute;
+  /* Inset by the outer border width (2px) */
   top: 2px;
   left: 2px;
   right: 2px;
   bottom: 2px;
-  background: linear-gradient(180deg, #fff8dc 0%, var(--gold-light) 20%, var(--gold) 60%, var(--gold-dark) 100%);
-  clip-path: polygon(7px 0, calc(100% - 7px) 0,
-      100% 7px, 100% calc(100% - 7px),
-      calc(100% - 7px) 100%, 7px 100%,
-      0 calc(100% - 7px), 0 7px);
-  z-index: -1;
-  transition: background 0.25s ease;
+  background: var(--hall-btn-border-inner-color);
+  /* Outer chamfer is 14px. Minus 2px inset = 12px inner chamfer */
+  clip-path: polygon(12px 0, calc(100% - 12px) 0,
+      100% 12px, 100% calc(100% - 12px),
+      calc(100% - 12px) 100%, 12px 100%,
+      0 calc(100% - 12px), 0 12px);
+  z-index: -2;
 }
 
 .hall-btn::after {
   content: "";
   position: absolute;
+  /* Inset by outer (2px) + inner (1px) = 3px */
   top: 3px;
   left: 3px;
   right: 3px;
   bottom: 3px;
-  border-top: 1px solid rgba(255, 255, 255, 0.7);
-  clip-path: polygon(4px 0, calc(100% - 4px) 0,
-      100% 4px, 100% calc(100% - 4px),
-      calc(100% - 4px) 100%, 4px 100%,
-      0 calc(100% - 4px), 0 4px);
+  background: linear-gradient(180deg, var(--hall-btn-bg-top) 0%, var(--hall-btn-bg-mid) 50%, var(--hall-btn-bg-bottom-start) 50%, var(--hall-btn-bg-bottom-end) 100%);
+  /* Outer chamfer 14px. Minus 3px inset = 11px surface chamfer */
+  clip-path: polygon(11px 0, calc(100% - 11px) 0,
+      100% 11px, 100% calc(100% - 11px),
+      calc(100% - 11px) 100%, 11px 100%,
+      0 calc(100% - 11px), 0 11px);
   z-index: -1;
-  pointer-events: none;
+  transition: background 0.25s ease;
 }
 
 .hall-btn:hover {
@@ -911,7 +960,7 @@ a {
   filter: drop-shadow(0 6px 12px rgba(43, 29, 0, 0.7));
 }
 
-.hall-btn:hover::before {
+.hall-btn:hover::after {
   background: linear-gradient(180deg, #fff 0%, var(--gold-light) 30%, var(--gold) 70%, var(--gold-mid) 100%);
 }
 
@@ -920,8 +969,12 @@ a {
 }
 
 .hall-btn-arrow {
-  width: 14px;
-  height: 14px;
+  position: absolute;
+  right: var(--hall-btn-arrow-gap);
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--hall-btn-arrow-size);
+  height: var(--hall-btn-arrow-size);
   flex-shrink: 0;
 }
 
