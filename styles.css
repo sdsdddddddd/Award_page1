@@ -59,6 +59,36 @@
 
   --sub-header-offset: 2.5%;
   --sub-header-width: 98%;
+
+  /* Hall Card Button Sparkle settings */
+  /* Increase or decrease this size! */
+  --hall-sparkle-size: 40px;
+  /* Adjust horizontal and vertical position to keep them centered on the corners */
+  --hall-sparkle-x: 10px;
+  --hall-sparkle-y: 0px;
+
+  /* Card Frame Setting */
+  /* Adjust this if the frame needs to be slightly larger/smaller than the card edge */
+  --card-frame-inset: -14px;
+
+  /* Space Below the Cards */
+  /* Increase this value (e.g., 100px, 15vh) to add more breathing room at the very bottom of the page */
+  --grid-bottom-space: 80px;
+
+  /* Hall Photo Stars Settings */
+  /* Top Right Star (Larger) */
+  --photo-star-tr-size: 65px;
+  --photo-star-tr-x: 95%;
+  --photo-star-tr-y: 4%;
+
+  /* Top Left Star (Smaller) */
+  --photo-star-tl-size: 40px;
+  --photo-star-tl-x: 1%;
+  --photo-star-tl-y: 28%;
+
+  /* Red Ribbon Banner Width */
+  /* Decrease this to make the red rectangle wider (e.g., 8px or 4px) */
+  --hall-banner-inset: 16px;
 }
 
 html {
@@ -541,9 +571,11 @@ a {
   z-index: 2;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px 24px;
+  /* Increased gap to accommodate the negative frame inset */
+  gap: 48px 44px;
   padding: 0 12px;
   margin-top: 1%;
+  margin-bottom: var(--grid-bottom-space);
 }
 
 /* ── Hall Card ── */
@@ -554,12 +586,13 @@ a {
 .hall-card-frame {
   position: relative;
   padding: 10px;
-  background: linear-gradient(145deg, var(--gold-light) 0%, var(--gold) 35%, var(--gold-dark) 65%, var(--gold-mid) 100%);
+  /* Changed to black as requested by reference */
+  background: var(--black);
   border-radius: 4px;
   box-shadow:
     0 0 20px rgba(212, 175, 55, 0.35),
     0 4px 16px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -582,15 +615,17 @@ a {
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-/* Corner ornaments */
+/* Corner ornaments - Replaced with the new generated frame! */
 .hall-card-frame::after {
   content: "";
   position: absolute;
-  inset: 2px;
-  border: 2px solid transparent;
-  border-image: linear-gradient(135deg, var(--gold-light), transparent 30%, transparent 70%, var(--gold-light)) 1;
+  inset: var(--card-frame-inset);
+  background-image: url('images/card-frame.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   pointer-events: none;
-  border-radius: 2px;
+  /* Lowest z-index so everything on the card overlays it */
+  z-index: 1;
 }
 
 .hall-badge {
@@ -648,7 +683,7 @@ a {
 
 .hall-photo {
   position: relative;
-  overflow: hidden;
+  /* Removed overflow: hidden so the stars can overflow freely! */
   border: 2px solid var(--black);
   border-bottom: none;
   background: var(--black-soft);
@@ -656,16 +691,44 @@ a {
   z-index: 2;
 }
 
+/* Two golden sparkles overlaying the hall photo */
+.hall-photo::before,
+.hall-photo::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  background-image: url('images/photo-star.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Center the element on the exact coordinate */
+  transform: translate(-50%, -50%);
+}
+
+/* Top Left Star */
+.hall-photo::before {
+  width: var(--photo-star-tl-size);
+  height: var(--photo-star-tl-size);
+  left: var(--photo-star-tl-x);
+  top: var(--photo-star-tl-y);
+}
+
+/* Top Right Star */
+.hall-photo::after {
+  width: var(--photo-star-tr-size);
+  height: var(--photo-star-tr-size);
+  left: var(--photo-star-tr-x);
+  top: var(--photo-star-tr-y);
+}
+
 .hall-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
 }
 
-.hall-card:hover .hall-photo img {
-  transform: scale(1.04);
-}
+/* Removed hover effect to keep it completely static */
 
 /* Container for the 3D ribbon */
 .hall-name {
@@ -681,7 +744,8 @@ a {
 .hall-name-text {
   position: relative;
   display: block;
-  margin: 0 16px;
+  /* Uses variable so the width of the red rectangle can be adjusted */
+  margin: 0 var(--hall-banner-inset);
   /* Inset from the card edges to leave room for swallowtails */
   padding: 8px 24px;
   /* Reverted vertical padding to original height */
@@ -716,27 +780,18 @@ a {
   /* Ensure it stays above the text and border */
   clip-path: inset(0 18px 0 18px);
   /* Strictly contain horizontal flares within the banner width */
-  background:
-    /* Top Left Sparkle */
-    radial-gradient(circle 3px at 28px 19px, #ffe600 0%, transparent 100%),
-    radial-gradient(ellipse 12px 2.5px at 28px 19px, #ffe600 0%, rgba(255, 150, 0, 0.8) 60%, transparent 100%),
-    radial-gradient(ellipse 40px 1px at 28px 19px, #ffe600 0%, rgba(255, 150, 0, 0.8) 50%, transparent 100%),
-    radial-gradient(ellipse 1.5px 8px at 28px 19px, #ffe600 0%, rgba(255, 150, 0, 0.9) 40%, transparent 100%),
-    /* Top Right Sparkle */
-    radial-gradient(circle 3px at calc(100% - 28px) 19px, #ffe600 0%, transparent 100%),
-    radial-gradient(ellipse 12px 2.5px at calc(100% - 28px) 19px, #ffe600 0%, rgba(255, 150, 0, 0.8) 60%, transparent 100%),
-    radial-gradient(ellipse 40px 1px at calc(100% - 28px) 19px, #ffe600 0%, rgba(255, 150, 0, 0.8) 50%, transparent 100%),
-    radial-gradient(ellipse 1.5px 8px at calc(100% - 28px) 19px, #ffe600 0%, rgba(255, 150, 0, 0.9) 40%, transparent 100%),
-    /* Bottom Left Sparkle */
-    radial-gradient(circle 3px at 28px calc(100% - 19px), #ffe600 0%, transparent 100%),
-    radial-gradient(ellipse 12px 2.5px at 28px calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.8) 60%, transparent 100%),
-    radial-gradient(ellipse 40px 1px at 28px calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.8) 50%, transparent 100%),
-    radial-gradient(ellipse 1.5px 8px at 28px calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.9) 40%, transparent 100%),
-    /* Bottom Right Sparkle */
-    radial-gradient(circle 3px at calc(100% - 28px) calc(100% - 19px), #ffe600 0%, transparent 100%),
-    radial-gradient(ellipse 12px 2.5px at calc(100% - 28px) calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.8) 60%, transparent 100%),
-    radial-gradient(ellipse 40px 1px at calc(100% - 28px) calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.8) 50%, transparent 100%),
-    radial-gradient(ellipse 1.5px 8px at calc(100% - 28px) calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.9) 40%, transparent 100%);
+  background-image:
+    url('images/sparkle-star.png'),
+    url('images/sparkle-star.png'),
+    url('images/sparkle-star.png'),
+    url('images/sparkle-star.png');
+  background-size: var(--hall-sparkle-size) var(--hall-sparkle-size);
+  background-repeat: no-repeat;
+  background-position:
+    var(--hall-sparkle-x) var(--hall-sparkle-y),
+    calc(100% - var(--hall-sparkle-x)) var(--hall-sparkle-y),
+    var(--hall-sparkle-x) calc(100% - var(--hall-sparkle-y)),
+    calc(100% - var(--hall-sparkle-x)) calc(100% - var(--hall-sparkle-y));
 }
 
 /* Left Ribbon End */
