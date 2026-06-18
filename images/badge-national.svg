@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="ϫ�L��_h�n*o���">
+  <defs>
+    <linearGradient id="goldRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5e6a8"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#8b6914"/>
+    </linearGradient>
+    <linearGradient id="goldCrown" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff8dc"/>
+      <stop offset="100%" stop-color="#c9a227"/>
+    </linearGradient>
+  </defs>
+  <circle cx="80" cy="82" r="72" fill="none" stroke="url(#goldRing)" stroke-width="4"/>
+  <circle cx="80" cy="82" r="64" fill="#0a0a0a" stroke="url(#goldRing)" stroke-width="2"/>
+  <path d="M55 38 L65 28 L75 36 L80 24 L85 36 L95 28 L105 38 L100 48 L60 48 Z" fill="url(#goldCrown)" stroke="#8b6914" stroke-width="1"/>
+  <ellipse cx="80" cy="82" rx="52" ry="48" fill="none" stroke="url(#goldRing)" stroke-width="2" opacity="0.6"/>
+  <text x="80" y="68" text-anchor="middle" fill="#f5e6a8" font-family="Noto Sans JP, sans-serif" font-size="11" font-weight="700">ϫ�L��_</text>
+  <text x="80" y="84" text-anchor="middle" fill="#ffffff" font-family="Noto Sans JP, sans-serif" font-size="13" font-weight="900">h�n</text>
+  <text x="80" y="102" text-anchor="middle" fill="#f5e6a8" font-family="Noto Sans JP, sans-serif" font-size="13" font-weight="900">*o���</text>
+</svg>

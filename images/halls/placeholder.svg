@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 220" role="img" aria-label="��">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="100%" stop-color="#E0F4FF"/>
+    </linearGradient>
+    <linearGradient id="building" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#888"/>
+      <stop offset="100%" stop-color="#555"/>
+    </linearGradient>
+  </defs>
+  <rect width="360" height="220" fill="url(#sky)"/>
+  <rect x="40" y="80" width="280" height="120" fill="url(#building)"/>
+  <rect x="60" y="100" width="50" height="40" fill="#FFE066" opacity="0.9"/>
+  <rect x="130" y="100" width="50" height="40" fill="#FFE066" opacity="0.9"/>
+  <rect x="200" y="100" width="50" height="40" fill="#FFE066" opacity="0.9"/>
+  <rect x="270" y="100" width="30" height="100" fill="#333"/>
+  <rect x="150" y="150" width="60" height="50" fill="#222"/>
+  <polygon points="180,50 40,80 320,80" fill="#666"/>
+  <text x="180" y="195" text-anchor="middle" fill="#fff" font-family="Noto Sans JP, sans-serif" font-size="14" font-weight="700" opacity="0.7">��</text>
+</svg>

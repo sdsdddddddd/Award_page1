@@ -1,0 +1,934 @@
+/* ── Reset & Base ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --gold-light: #f5e6a8;
+  --gold: #d4af37;
+  --gold-dark: #8b6914;
+  --gold-mid: #c9a227;
+  --red-deep: #6b0000;
+  --red: #8b0000;
+  --red-banner: #7a0010;
+  --black: #0a0a0a;
+  --black-soft: #111;
+
+  /* Hero sizing — percentage-based */
+  --hero-tagline-col: 11%;
+  --hero-logo-width: 100%;
+  --hero-logo-max: min(1000px, 92vw);
+  /* Increased from 820px to make the logo larger */
+  --hero-badge-width: 22%;
+  --hero-badge-top: 4%;
+  --hero-badge-left: 14%;
+  --hero-tagline-size: clamp(1.15rem, calc(100vw / 30), 3.8rem);
+  --hero-tagline-gap: clamp(0.3rem, calc(100vw / 90), 0.9rem);
+  --hero-tagline-right: -8%;
+  --hero-tagline-top: 20%;
+  --hero-center-offset: -5%;
+  /* Moved from -10% to 0% to push the entire logo down */
+  --hero-inner-scale: 0.72;
+  --hero-inner-max-height: 62vh;
+  --hero-inner-margin-bottom: 0vh;
+  /* Changed from -14vh to 0vh to stop it from sucking the banner up! */
+  --tagline-gold: #fbfa9a;
+
+  --logo-banner-gap: 26vh;
+  /* Control the gap between the main logo and the banner here */
+
+  /* Cloud Sparkle settings */
+  --sparkle-top: 18vh;
+  --sparkle-side: -18%;
+
+  --sparkle-mid-top: 45vh;
+  --sparkle-mid-side: -35%;
+  --sparkle-mid-width: 55%;
+  /* Much larger for the left middle sparkle */
+  --sparkle-mid-squeeze: 0.6;
+  /* How squeezed vertically it is */
+
+  --sparkle-outer-top: 70vh;
+  /* Pushed much lower */
+  --sparkle-outer-side: -50%;
+  --sparkle-width: 45%;
+
+  --sub-header-offset: 2.5%;
+  --sub-header-width: 92%;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  background: var(--black);
+  color: #fff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ── Page Background ── */
+.page {
+  position: relative;
+  min-height: 100vh;
+  background: var(--black);
+}
+
+.curtain-img {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.45) 35%, rgba(0, 0, 0, 0.88) 65%, rgba(0, 0, 0, 0.96) 100%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Sparkles & Light Flares ── */
+.sparkles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, var(--gold-light) 40%, transparent 70%);
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.6);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.light-flares {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flare {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 230, 150, 0.25) 0%, rgba(212, 175, 55, 0.08) 40%, transparent 70%);
+  animation: pulse-flare var(--dur, 6s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes pulse-flare {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.15);
+  }
+}
+
+/* ── Fixed Sparkles Wrapper ── */
+.fixed-sparkles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  /* Below page-frame but above background curtain */
+}
+
+.fixed-sparkles-inner {
+  position: absolute;
+  top: 15vh;
+  /* Roughly aligns with where the hero logo sits */
+  left: 50%;
+  width: 100%;
+  max-width: var(--hero-logo-max);
+  transform: translateX(-50%);
+  height: 100%;
+}
+
+/* ── Ornate Page Frame ── */
+.page-frame {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px 48px;
+}
+
+/* ── Hero Badge (upper-left on curtain) ── */
+.hero-badge {
+  position: absolute;
+  z-index: 3;
+  width: var(--hero-badge-width);
+  top: var(--hero-badge-top);
+  left: var(--hero-badge-left);
+  pointer-events: none;
+}
+
+.badge-bg {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: 64%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  background-color: var(--black);
+  border-radius: 50%;
+  z-index: -1;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.95);
+}
+
+.ribbon-tail {
+  position: absolute;
+  top: 70%;
+  width: 16%;
+  height: 40%;
+  background: linear-gradient(180deg, #500000 0%, var(--red-deep) 20%, var(--red-banner) 50%, var(--red-deep) 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+  z-index: -2;
+}
+
+.ribbon-tail::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  background-image:
+    linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 40%, var(--gold-dark) 100%),
+    linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 40%, var(--gold-dark) 100%);
+  background-size: 2px 100%, 2px 100%;
+  background-position: left top, right top;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.ribbon-left {
+  left: 28%;
+  transform-origin: top center;
+  transform: rotate(18deg);
+}
+
+.ribbon-right {
+  right: 28%;
+  transform-origin: top center;
+  transform: rotate(-18deg);
+}
+
+.hero-badge img {
+  position: relative;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.5));
+  z-index: 2;
+}
+
+/* ── Hero Section ── */
+.hero {
+  position: relative;
+  padding-top: 0;
+  width: 100%;
+  margin-bottom: 0;
+  z-index: 1;
+  overflow: visible;
+}
+
+.hero-inner {
+  position: relative;
+  width: 100%;
+  padding: 0 1%;
+  z-index: 2;
+  transform: scale(var(--hero-inner-scale));
+  transform-origin: top center;
+  margin-bottom: var(--hero-inner-margin-bottom);
+  max-height: var(--hero-inner-max-height);
+}
+
+.hero-center {
+  position: relative;
+  width: 100%;
+  margin-top: var(--hero-center-offset);
+}
+
+.hero-logo-bg {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 55%;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(20, 5, 0, 0.85) 0%, rgba(20, 5, 0, 0.4) 50%, transparent 75%);
+  border-radius: 50%;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.hero-laurel {
+  position: absolute;
+  top: 14%;
+  width: 25%;
+  max-width: 260px;
+  z-index: -1;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+}
+
+.hero-laurel-left {
+  left: 32%;
+  transform-origin: bottom right;
+  transform: rotate(-12deg);
+}
+
+.hero-laurel-right {
+  right: 32%;
+  transform-origin: bottom left;
+  transform: rotate(12deg);
+}
+
+.hero-sparkle {
+  position: absolute;
+  top: var(--sparkle-top);
+  width: var(--sparkle-width);
+  max-width: 500px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-sparkle-left {
+  left: var(--sparkle-side);
+  transform: translateY(-50%);
+}
+
+.hero-sparkle-left-mid {
+  top: var(--sparkle-mid-top);
+  left: var(--sparkle-mid-side);
+  width: var(--sparkle-mid-width);
+  transform: translateY(-50%) scaleY(var(--sparkle-mid-squeeze));
+}
+
+.hero-sparkle-left-extra {
+  top: 32vh;
+  left: -28%;
+  width: 40%;
+  transform: translateY(-50%) rotate(-10deg);
+}
+
+.hero-sparkle-left-outer {
+  top: var(--sparkle-outer-top);
+  left: var(--sparkle-outer-side);
+  transform: translateY(-50%);
+}
+
+.hero-sparkle-right {
+  top: 12vh;
+  right: -15%;
+  transform: translateY(-50%) scaleX(-1) rotate(12deg) scale(0.9);
+}
+
+.hero-sparkle-right-mid {
+  top: 35vh;
+  /* Right in the empty space! */
+  right: -25%;
+  width: 50%;
+  transform: translateY(-50%) scaleX(-1) rotate(-8deg);
+}
+
+.hero-sparkle-right-outer {
+  top: 55vh;
+  right: -45%;
+  transform: translateY(-50%) scaleX(-1) rotate(25deg) scale(1.1);
+}
+
+.hero-sparkle-right-extra {
+  top: 72vh;
+  /* Near the bottom black banner */
+  right: -15%;
+  /* Tucked in a bit */
+  width: 40%;
+  transform: translateY(-50%) scaleX(-1) rotate(-15deg) scale(0.95);
+}
+
+.hero-sparkle-right-extra-two {
+  top: 24vh;
+  right: -35%;
+  width: 38%;
+  transform: translateY(-50%) scaleX(-1) rotate(18deg);
+}
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.1;
+    transform: translateY(-50%) rotate(var(--rot)) scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) rotate(var(--rot)) scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+  }
+}
+
+.twinkle-star {
+  position: absolute;
+  z-index: 2;
+  /* Put them slightly higher so they sit beautifully over the cloud sparkles */
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: twinkle var(--duration, 3s) ease-in-out infinite;
+}
+
+
+.hero-logo {
+  display: block;
+  margin-inline: auto;
+  width: var(--hero-logo-width);
+  max-width: var(--hero-logo-max);
+  height: auto;
+  filter: drop-shadow(0 8px 24px rgba(212, 175, 55, 0.4));
+}
+
+.hero-tagline {
+  position: absolute;
+  top: var(--hero-tagline-top);
+  right: var(--hero-tagline-right);
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  gap: var(--hero-tagline-gap);
+  width: auto;
+  padding-right: 0;
+}
+
+.hero-tagline p {
+  margin: 0;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: var(--hero-tagline-size);
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: calc(100vw / 900);
+  color: #fff8e0;
+  text-shadow:
+    0 0 10px rgba(255, 248, 220, 0.55),
+    0 0 4px rgba(251, 250, 154, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.hero-tagline .tagline-gold {
+  background: linear-gradient(165deg,
+      #ffe566 0%,
+      #fbfa9a 22%,
+      #fffff0 42%,
+      #fbfa9a 58%,
+      #f8f67a 78%,
+      #ffe866 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 700;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
+.hero-tagline .tagline-bold {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ── Sub Header Bar ── */
+.sub-header {
+  position: relative;
+  z-index: 3;
+  width: var(--sub-header-width);
+  max-width: 1100px;
+  /* Now that we removed the negative pull from the logo, a normal margin works perfectly to create the gap */
+  margin: var(--logo-banner-gap) auto 4%;
+  overflow: visible;
+}
+
+.sub-header-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  aspect-ratio: 8 / 1;
+  /* Increased side padding to 15% to keep text away from the swirls */
+  padding: 4% 15%;
+  background-image: url('images/banner-bg.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.sub-header-text {
+  font-family: "Noto Serif JP", serif;
+  /* Reduced font size so it fits perfectly */
+  font-size: clamp(0.9rem, 2.6vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  background: linear-gradient(180deg, #fffdf2 0%, #fceda8 30%, #e0bc36 60%, #fff7ce 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.9));
+  white-space: nowrap;
+}
+
+/* ── Hall Grid ── */
+.hall-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px 24px;
+  padding: 0 12px;
+  margin-top: 1%;
+}
+
+/* ── Hall Card ── */
+.hall-card {
+  position: relative;
+}
+
+.hall-card-frame {
+  position: relative;
+  padding: 10px;
+  background: linear-gradient(145deg, var(--gold-light) 0%, var(--gold) 35%, var(--gold-dark) 65%, var(--gold-mid) 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.35),
+    0 4px 16px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.hall-card-frame::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(139, 105, 20, 0.5);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.hall-card:hover .hall-card-frame {
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 30px rgba(212, 175, 55, 0.55),
+    0 8px 24px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Corner ornaments */
+.hall-card-frame::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border: 2px solid transparent;
+  border-image: linear-gradient(135deg, var(--gold-light), transparent 30%, transparent 70%, var(--gold-light)) 1;
+  pointer-events: none;
+  border-radius: 2px;
+}
+
+.hall-badge {
+  position: absolute;
+  top: -30px;
+  left: 12px;
+  width: 130px;
+  height: 130px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8));
+}
+
+.hall-badge::before {
+  content: "";
+  position: absolute;
+  top: 54%;
+  /* Push it slightly down because the crown occupies the top */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64%;
+  /* Smaller so it only fills the inner hole */
+  height: 64%;
+  background: #050505;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.hall-badge-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.hall-badge-text {
+  position: relative;
+  z-index: 2;
+  margin-top: 20px;
+  /* Shift down to avoid the crown */
+  font-size: 1.45rem;
+  font-weight: 900;
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 40%, var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.8));
+  letter-spacing: 0.05em;
+}
+
+.hall-photo {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--black);
+  border-bottom: none;
+  background: var(--black-soft);
+  aspect-ratio: 360 / 220;
+  z-index: 2;
+}
+
+.hall-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.hall-card:hover .hall-photo img {
+  transform: scale(1.04);
+}
+
+/* Container for the 3D ribbon */
+.hall-name {
+  position: relative;
+  margin-top: 0;
+  margin-left: 0;
+  /* Keep strictly inside the card */
+  margin-right: 0;
+  z-index: 4;
+}
+
+/* Front Banner */
+.hall-name-text {
+  position: relative;
+  display: block;
+  margin: 0 16px;
+  /* Inset from the card edges to leave room for swallowtails */
+  padding: 8px 24px;
+  /* Reverted vertical padding to original height */
+  background: linear-gradient(180deg, var(--red-banner) 0%, var(--red-deep) 100%);
+  border: 2px solid transparent;
+  border-image: linear-gradient(180deg, #ffe566 0%, #d4af37 20%, #8b6914 50%, #d4af37 80%, #ffe566 100%) 1;
+  box-shadow: inset 0 0 8px rgba(212, 175, 55, 0.4);
+  text-align: center;
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+  /* Increased font size */
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  line-height: 1.4;
+  z-index: 2;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+  white-space: nowrap;
+}
+
+/* Subtle Soft Sparkles sitting on top and bottom borders */
+.hall-name-text::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  /* Expand so vertical glow safely goes above/below the border */
+  pointer-events: none;
+  z-index: 3;
+  /* Ensure it stays above the text and border */
+  clip-path: inset(0 18px 0 18px);
+  /* Strictly contain horizontal flares within the banner width */
+  background:
+    /* Top Left Sparkle */
+    radial-gradient(circle 3px at 28px 19px, #ffe600 0%, transparent 100%),
+    radial-gradient(ellipse 12px 2.5px at 28px 19px, #ffe600 0%, rgba(255, 150, 0, 0.8) 60%, transparent 100%),
+    radial-gradient(ellipse 40px 1px at 28px 19px, #ffe600 0%, rgba(255, 150, 0, 0.8) 50%, transparent 100%),
+    radial-gradient(ellipse 1.5px 8px at 28px 19px, #ffe600 0%, rgba(255, 150, 0, 0.9) 40%, transparent 100%),
+    /* Top Right Sparkle */
+    radial-gradient(circle 3px at calc(100% - 28px) 19px, #ffe600 0%, transparent 100%),
+    radial-gradient(ellipse 12px 2.5px at calc(100% - 28px) 19px, #ffe600 0%, rgba(255, 150, 0, 0.8) 60%, transparent 100%),
+    radial-gradient(ellipse 40px 1px at calc(100% - 28px) 19px, #ffe600 0%, rgba(255, 150, 0, 0.8) 50%, transparent 100%),
+    radial-gradient(ellipse 1.5px 8px at calc(100% - 28px) 19px, #ffe600 0%, rgba(255, 150, 0, 0.9) 40%, transparent 100%),
+    /* Bottom Left Sparkle */
+    radial-gradient(circle 3px at 28px calc(100% - 19px), #ffe600 0%, transparent 100%),
+    radial-gradient(ellipse 12px 2.5px at 28px calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.8) 60%, transparent 100%),
+    radial-gradient(ellipse 40px 1px at 28px calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.8) 50%, transparent 100%),
+    radial-gradient(ellipse 1.5px 8px at 28px calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.9) 40%, transparent 100%),
+    /* Bottom Right Sparkle */
+    radial-gradient(circle 3px at calc(100% - 28px) calc(100% - 19px), #ffe600 0%, transparent 100%),
+    radial-gradient(ellipse 12px 2.5px at calc(100% - 28px) calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.8) 60%, transparent 100%),
+    radial-gradient(ellipse 40px 1px at calc(100% - 28px) calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.8) 50%, transparent 100%),
+    radial-gradient(ellipse 1.5px 8px at calc(100% - 28px) calc(100% - 19px), #ffe600 0%, rgba(255, 150, 0, 0.9) 40%, transparent 100%);
+}
+
+/* Left Ribbon End */
+.hall-name::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  /* Reverted to match the original banner height */
+  left: 0;
+  /* Flush with the inner card edge */
+  bottom: -10px;
+  /* Made ribbon shorter in height */
+  width: 24px;
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(180deg, #9e0000 0%, #4a0000 100%),
+    linear-gradient(180deg, #ffe566 0%, #d4af37 20%, #8b6914 50%, #d4af37 80%, #ffe566 100%);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%, 12px 50%, 0 0);
+  /* Perfectly symmetrical vertical swallowtail */
+  transform-origin: right center;
+  transform: skewY(-15deg);
+  /* Slants the entire ribbon down-left */
+  z-index: 0;
+}
+
+/* Right Ribbon End */
+.hall-name::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  /* Reverted to match the original banner height */
+  right: 0;
+  bottom: -10px;
+  /* Made ribbon shorter in height */
+  width: 24px;
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(180deg, #9e0000 0%, #4a0000 100%),
+    linear-gradient(180deg, #ffe566 0%, #d4af37 20%, #8b6914 50%, #d4af37 80%, #ffe566 100%);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  clip-path: polygon(0 0, 0 100%, 100% 100%, calc(100% - 12px) 50%, 100% 0);
+  /* Perfectly symmetrical vertical swallowtail */
+  transform-origin: left center;
+  transform: skewY(15deg);
+  /* Slants the entire ribbon down-right */
+  z-index: 0;
+}
+
+
+.hall-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 12px 44px 8px;
+  /* Increased left/right margin to make it noticeably less wide */
+  padding: 8px 16px;
+  /* Decreased vertical padding for a sleek premium look */
+  background: linear-gradient(180deg, #e6c553 0%, #8b6914 100%);
+  /* Golden boundary */
+  clip-path: polygon(14px 0, calc(100% - 14px) 0,
+      100% 14px, 100% calc(100% - 14px),
+      calc(100% - 14px) 100%, 14px 100%,
+      0 calc(100% - 14px), 0 14px);
+  font-size: 1.35rem;
+  /* Increased font size */
+  font-weight: 800;
+  /* Decreased font weight to 800 */
+  color: #1a1100;
+  /* Matching dark brown for text */
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  filter: drop-shadow(0 4px 6px rgba(43, 29, 0, 0.6));
+  /* Dark brown drop-shadow */
+  transition: transform 0.25s ease, filter 0.25s ease;
+  position: relative;
+  z-index: 3;
+}
+
+.hall-btn::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background: linear-gradient(180deg, #fff8dc 0%, var(--gold-light) 20%, var(--gold) 60%, var(--gold-dark) 100%);
+  clip-path: polygon(7px 0, calc(100% - 7px) 0,
+      100% 7px, 100% calc(100% - 7px),
+      calc(100% - 7px) 100%, 7px 100%,
+      0 calc(100% - 7px), 0 7px);
+  z-index: -1;
+  transition: background 0.25s ease;
+}
+
+.hall-btn::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border-top: 1px solid rgba(255, 255, 255, 0.7);
+  clip-path: polygon(4px 0, calc(100% - 4px) 0,
+      100% 4px, 100% calc(100% - 4px),
+      calc(100% - 4px) 100%, 4px 100%,
+      0 calc(100% - 4px), 0 4px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hall-btn:hover {
+  transform: scale(1.03);
+  filter: drop-shadow(0 6px 12px rgba(43, 29, 0, 0.7));
+}
+
+.hall-btn:hover::before {
+  background: linear-gradient(180deg, #fff 0%, var(--gold-light) 30%, var(--gold) 70%, var(--gold-mid) 100%);
+}
+
+.hall-btn:active {
+  transform: scale(0.98);
+}
+
+.hall-btn-arrow {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  :root {
+    --hero-tagline-col: 13%;
+    --hero-badge-width: min(220px, 22vw);
+    --hero-badge-top: 8%;
+    --hero-badge-left: 2%;
+    --hero-logo-max: min(800px, 92vw);
+    --hero-center-offset: -3%;
+    --hero-tagline-top: 16%;
+  }
+
+  .hall-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --hero-tagline-col: 100%;
+    --hero-logo-width: 96%;
+    --hero-logo-max: 96vw;
+    --hero-badge-width: min(200px, 38vw);
+    --hero-badge-top: 6%;
+    --hero-badge-left: 2%;
+    --hero-center-offset: -1%;
+    --hero-tagline-top: 14%;
+    --sub-header-width: 98%;
+  }
+
+  .hero-inner {
+    padding: 0 3%;
+    padding-top: calc(var(--hero-badge-width) * 0.35);
+    --hero-inner-scale: 0.78;
+    --hero-inner-margin-bottom: -8vh;
+    --hero-inner-max-height: 58vh;
+  }
+
+  .hero-tagline {
+    position: static;
+    transform: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2%;
+  }
+
+  .hero-tagline p {
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    line-height: 1.5;
+  }
+
+  .sub-header {
+    width: var(--sub-header-width);
+    margin-top: 3%;
+    margin-bottom: 1%;
+  }
+
+  .hall-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+}

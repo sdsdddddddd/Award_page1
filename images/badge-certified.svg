@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" role="img" aria-label="認定">
+  <defs>
+    <linearGradient id="certGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff8dc"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#8b6914"/>
+    </linearGradient>
+  </defs>
+  <circle cx="36" cy="38" r="30" fill="#0a0a0a" stroke="url(#certGold)" stroke-width="2.5"/>
+  <path d="M24 18 L30 12 L36 18 L42 12 L48 18 L44 24 L28 24 Z" fill="url(#certGold)"/>
+  <text x="36" y="44" text-anchor="middle" fill="#ffffff" font-family="Noto Sans JP, sans-serif" font-size="16" font-weight="900">認定</text>
+</svg>
