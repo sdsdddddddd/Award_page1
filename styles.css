@@ -674,10 +674,21 @@ a {
 
 .hall-badge {
   position: absolute;
-  top: -30px;
-  left: 12px;
-  width: 130px;
-  height: 130px;
+
+  /* --- BADGE POSITION ADJUSTMENT --- */
+  top: -60px;
+  /* <-- CHANGE THIS to move it UP (more negative, e.g., -40px) or DOWN (less negative, e.g., -20px) */
+  left: 0px;
+  /* <-- CHANGE THIS to move it LEFT (smaller, e.g., 0px) or RIGHT (larger, e.g., 20px) */
+  /* --------------------------------- */
+
+  /* --- BADGE SIZE ADJUSTMENT --- */
+  width: 170px;
+  /* <-- CHANGE THIS VALUE to adjust the overall badge size (was 130px) */
+  height: 170px;
+  /* <-- KEEP THIS THE SAME AS WIDTH so it stays a perfect circle */
+  /* ----------------------------- */
+
   z-index: 5;
   display: flex;
   align-items: center;
@@ -714,7 +725,12 @@ a {
   z-index: 2;
   margin-top: 20px;
   /* Shift down to avoid the crown */
-  font-size: 1.45rem;
+
+  /* --- BADGE FONT SIZE ADJUSTMENT --- */
+  font-size: 1.8rem;
+  /* <-- CHANGE THIS VALUE to adjust the text size inside the badge (was 1.45rem) */
+  /* ---------------------------------- */
+
   font-weight: 900;
   background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 40%, var(--gold-dark) 100%);
   -webkit-background-clip: text;
@@ -773,6 +789,37 @@ a {
 }
 
 /* Removed hover effect to keep it completely static */
+
+/* Image wrapper for hall names */
+.hall-name-image-wrapper {
+  position: relative;
+  z-index: 4;
+  margin-top: 5px;
+  /* Pull it slightly over the photo if needed */
+  margin-bottom: -5px;
+  /* Increased space between the red banner and the yellow button */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hall-name-img {
+  width: 100%;
+  /* Make the red banner image wider */
+  margin-left: 0%;
+  /* Keep it centered when wider than 100% */
+  max-width: none;
+  /* Allow it to overflow the container slightly if needed */
+
+  /* --- HEIGHT ADJUSTMENT --- */
+  height: 80px;
+  /* <-- CHANGE THIS VALUE to decrease or increase height (e.g., 40px, 60px) */
+  object-fit: fill;
+  /* This ensures the image squishes to fit the new height. Change to 'contain' if you don't want it to squish */
+  /* ------------------------- */
+
+  display: block;
+}
 
 /* Container for the 3D ribbon */
 .hall-name {
@@ -895,7 +942,15 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 12px 44px 8px;
+
+  /* --- BUTTON SPACING ADJUSTMENT --- */
+  margin-top: 12px;
+  margin-left: 44px;
+  margin-right: 44px;
+  margin-bottom: 0px;
+  /* <-- CHANGE THIS to adjust the space BELOW the button (e.g., 0px or even -5px) */
+  /* --------------------------------- */
+
   /* Increased left/right margin to make it noticeably less wide */
   padding: var(--hall-btn-padding-y) var(--hall-btn-padding-x);
   /* Outer golden boundary */
@@ -908,7 +963,14 @@ a {
   /* Cursive-style Japanese serif font */
   font-size: var(--hall-btn-font-size);
   /* Increased font size */
+
+  /* --- BUTTON TEXT WEIGHT ADJUSTMENT --- */
   font-weight: 900;
+  /* 900 is max standard weight. */
+  -webkit-text-stroke: 0.5px #1a1100;
+  /* <-- INCREASE THIS (e.g., 1px or 1.5px) if you want the text even thicker/bolder! */
+  /* ------------------------------------- */
+
   color: #1a1100;
   /* Matching dark brown for text */
   letter-spacing: 0.1em;
