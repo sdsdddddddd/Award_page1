@@ -32,7 +32,7 @@
   --hero-tagline-top: 20%;
   --hero-center-offset: -2%;
   /* Moved from -10% to 0% to push the entire logo down */
-  --hero-inner-scale: 0.66;
+  --hero-inner-scale: 0.68;
   --hero-inner-max-height: none;
   --hero-inner-margin-bottom: 0vh;
   /* Changed from -14vh to 0vh to stop it from sucking the banner up! */
