@@ -32,13 +32,13 @@
   --hero-tagline-top: 20%;
   --hero-center-offset: -2%;
   /* Moved from -10% to 0% to push the entire logo down */
-  --hero-inner-scale: 0.72;
-  --hero-inner-max-height: 62vh;
+  --hero-inner-scale: 0.66;
+  --hero-inner-max-height: none;
   --hero-inner-margin-bottom: 0vh;
   /* Changed from -14vh to 0vh to stop it from sucking the banner up! */
   --tagline-gold: #fbfa9a;
 
-  --logo-banner-gap: 20vh;
+  --logo-banner-gap: -620px;
   /* Control the gap between the main logo and the banner here */
 
   /* Cloud Sparkle settings */
@@ -61,12 +61,12 @@
 
   /* --- Main Banner Button Settings --- */
   /* Adjust width and max-width to control the button's width */
-  --sub-header-width: 100%;
+  --sub-header-width: 90%;
   --sub-header-max-width: 1900px;
   /* IMPORTANT: If you increase the width and want to keep the height the same, increase the aspect ratio (e.g., to 22 / 1 or 24 / 1) */
   --sub-header-aspect-ratio: 24 / 1;
   /* Font size for the text inside the banner */
-  --sub-header-font-size: clamp(1.2rem, 3.5vw, 2.7rem);
+  --sub-header-font-size: clamp(1.2rem, 3vw, 2.7rem);
 
   /* --- Red Banner Settings --- */
   --hall-banner-font-size: 1.5rem;
@@ -146,6 +146,8 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -154,6 +156,8 @@ body {
   color: #fff;
   min-height: 100vh;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 img {
@@ -172,6 +176,8 @@ a {
   position: relative;
   min-height: 100vh;
   background: var(--black);
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .curtain-img {
@@ -284,7 +290,7 @@ a {
 .page-frame {
   position: relative;
   z-index: 2;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 20px 48px;
 }
@@ -615,6 +621,11 @@ a {
 
   /* Use this to shift the text left or right to manually center it inside the banner art! */
   transform: translateX(9px);
+}
+
+/* Hide the mobile break on desktop */
+.mobile-br {
+  display: none;
 }
 
 /* ── Hall Grid ── */
@@ -1051,53 +1062,356 @@ a {
   flex-shrink: 0;
 }
 
-/* ── Responsive ── */
-@media (max-width: 960px) {
+/* ── Ultra Wide Desktop (max 1800px) ── */
+@media (max-width: 1800px) {
+
   :root {
-    --hero-tagline-col: 13%;
-    --hero-badge-width: min(220px, 22vw);
-    --hero-badge-top: 8%;
-    --hero-badge-left: 2%;
-    --hero-logo-max: min(800px, 92vw);
-    --hero-center-offset: -3%;
-    --hero-tagline-top: 16%;
+    /* --- HERO SECTION (Logo, Tagline, Top Badge) --- */
+    --hero-tagline-col: 100%;
+    --hero-logo-width: 100%;
+    --hero-logo-max: min(910px, 88vw);
+
+    --hero-badge-width: 20%;
+    --hero-badge-top: 4%;
+    /* Pulled badge up from 6% to 4% */
+    --hero-badge-left: 17%;
+
+    --hero-tagline-size: clamp(1.15rem, calc(100vw / 30), 3.4rem);
+    --hero-tagline-gap: 0.8rem;
+    --hero-tagline-right: -6%;
+    --hero-tagline-top: 19.5%;
+
+    --hero-center-offset: -3.5%;
+    --hero-inner-scale: 0.64;
+    /* Shrunk logo even more */
+    --hero-inner-max-height: none;
+    --hero-inner-margin-bottom: 0vh;
+
+    --logo-banner-gap: -650px;
+    /* Pulled banner up even more safely */
   }
 
-  .hall-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px 16px;
+  .sub-header {
+    width: var(--sub-header-width);
+    margin-top: var(--logo-banner-gap);
+    margin-bottom: 12%;
+  }
+
+  .sub-header-banner {
+    padding: 1.5% 14%;
   }
 }
 
-@media (max-width: 640px) {
+/* ── Extra Large Desktop (max 1536px) ── */
+@media (max-width: 1536px) {
+
+  :root {
+    /* --- HERO SECTION (Logo, Tagline, Top Badge) --- */
+    --hero-tagline-col: 100%;
+    --hero-logo-width: 100%;
+    --hero-logo-max: min(910px, 88vw);
+
+    --hero-badge-width: 20%;
+    --hero-badge-top: 6%;
+    --hero-badge-left: 18%;
+
+    --hero-tagline-size: clamp(1.15rem, calc(100vw / 30), 3.4rem);
+    --hero-tagline-gap: 0.8rem;
+    --hero-tagline-right: -6%;
+    --hero-tagline-top: 19.5%;
+
+    --hero-center-offset: -3.5%;
+    --hero-inner-scale: 0.65;
+    --hero-inner-max-height: none;
+    --hero-inner-margin-bottom: 0vh;
+
+    --logo-banner-gap: -640px;
+
+    /* --- BACKGROUND SPARKLES AROUND HERO --- */
+    --sparkle-top: 18vh;
+    --sparkle-side: -18%;
+    --sparkle-mid-top: 45vh;
+    --sparkle-mid-side: -35%;
+    --sparkle-mid-width: 55%;
+    --sparkle-mid-squeeze: 0.6;
+    --sparkle-outer-top: 70vh;
+    --sparkle-outer-side: -50%;
+    --sparkle-width: 45%;
+
+    /* --- SUB-HEADER (The long banner below the main logo) --- */
+    --sub-header-offset: 2.5%;
+    --sub-header-width: 98%;
+    --sub-header-max-width: 100%;
+    --sub-header-aspect-ratio: 20 / 1;
+    --sub-header-font-size: clamp(1.2rem, 3.05vw, 2.55rem);
+
+    /* --- HALL CARDS - RED RIBBON BANNER --- */
+    --hall-banner-font-size: 1.45rem;
+    --hall-banner-padding-y: 11px;
+    --hall-banner-padding-x: 23px;
+    --hall-banner-letter-spacing: 0.001em;
+    --hall-banner-inset: 15px;
+
+    /* --- HALL CARDS - YELLOW BUTTON --- */
+    --hall-btn-font-size: 1.75rem;
+    --hall-btn-padding-y: 5px;
+    --hall-btn-padding-x: 16px;
+    --hall-btn-arrow-size: 27px;
+    --hall-btn-arrow-gap: 19px;
+
+    /* --- HALL CARDS - DECORATIVE SPARKLES --- */
+    --hall-sparkle-size: 40px;
+    --hall-sparkle-x: 10px;
+    --hall-sparkle-y: 0px;
+
+    /* --- HALL CARDS - FRAME & SPACING --- */
+    --card-padding-top: 0px;
+    --card-padding-sides: 6px;
+    --card-padding-bottom: 0px;
+    --button-margin-bottom: 11px;
+    --card-frame-inset: -14px;
+
+    --grid-bottom-space: 80px;
+
+    /* --- HALL CARDS - PHOTO STARS --- */
+    --photo-star-tr-size: 65px;
+    --photo-star-tr-x: 95%;
+    --photo-star-tr-y: 4%;
+
+    --photo-star-tl-size: 40px;
+    --photo-star-tl-x: 1%;
+    --photo-star-tl-y: 28%;
+  }
+
+  .sub-header {
+    width: var(--sub-header-width);
+    margin-top: var(--logo-banner-gap);
+    margin-bottom: 12%;
+  }
+
+  .sub-header-banner {
+    padding: 1.5% 14%;
+  }
+
+  /* 1536px grid: 3 columns */
+  .hall-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 0 12px;
+    gap: 44px 38px;
+  }
+
+  .hall-badge {
+    transform: scale(0.97);
+    transform-origin: top left;
+    top: -55px;
+    left: -2px;
+  }
+}
+
+/* ── Large Desktop / Medium Screen (max 1280px) ── */
+@media (max-width: 1280px) {
+
+  :root {
+    /* --- HERO SECTION (Logo, Tagline, Top Badge) --- */
+    --hero-tagline-col: 100%;
+    --hero-logo-width: 100%;
+    --hero-logo-max: min(900px, 90vw);
+
+    --hero-badge-width: 24%;
+    --hero-badge-top: 4%;
+    --hero-badge-left: 10%;
+
+    --hero-tagline-size: clamp(1.15rem, calc(100vw / 30), 3rem);
+    --hero-tagline-gap: 0.7rem;
+    --hero-tagline-right: -4%;
+    --hero-tagline-top: 19%;
+
+    --hero-center-offset: -5%;
+    --hero-inner-scale: 0.70;
+    --hero-inner-max-height: none;
+    --hero-inner-margin-bottom: 0vh;
+
+    --logo-banner-gap: -600px;
+
+    /* --- BACKGROUND SPARKLES AROUND HERO --- */
+    --sparkle-top: 18vh;
+    --sparkle-side: -18%;
+    --sparkle-mid-top: 45vh;
+    --sparkle-mid-side: -35%;
+    --sparkle-mid-width: 55%;
+    --sparkle-mid-squeeze: 0.6;
+    --sparkle-outer-top: 70vh;
+    --sparkle-outer-side: -50%;
+    --sparkle-width: 45%;
+
+    /* --- SUB-HEADER (The long banner below the main logo) --- */
+    --sub-header-offset: 2.5%;
+    --sub-header-width: 95%;
+    --sub-header-max-width: 100%;
+    --sub-header-aspect-ratio: 16 / 1;
+    --sub-header-font-size: clamp(1.2rem, 3.5vw, 2.4rem);
+
+    /* --- HALL CARDS - RED RIBBON BANNER --- */
+    --hall-banner-font-size: 1.4rem;
+    --hall-banner-padding-y: 11px;
+    --hall-banner-padding-x: 22px;
+    --hall-banner-letter-spacing: 0.001em;
+    --hall-banner-inset: 15px;
+
+    /* --- HALL CARDS - YELLOW BUTTON --- */
+    --hall-btn-font-size: 1.7rem;
+    --hall-btn-padding-y: 5px;
+    --hall-btn-padding-x: 16px;
+    --hall-btn-arrow-size: 26px;
+    --hall-btn-arrow-gap: 18px;
+
+    /* --- HALL CARDS - DECORATIVE SPARKLES --- */
+    --hall-sparkle-size: 40px;
+    --hall-sparkle-x: 10px;
+    --hall-sparkle-y: 0px;
+
+    /* --- HALL CARDS - FRAME & SPACING --- */
+    --card-padding-top: 0px;
+    --card-padding-sides: 6px;
+    --card-padding-bottom: 0px;
+    --button-margin-bottom: 11px;
+    --card-frame-inset: -14px;
+
+    --grid-bottom-space: 80px;
+
+    /* --- HALL CARDS - PHOTO STARS --- */
+    --photo-star-tr-size: 65px;
+    --photo-star-tr-x: 95%;
+    --photo-star-tr-y: 4%;
+
+    --photo-star-tl-size: 40px;
+    --photo-star-tl-x: 1%;
+    --photo-star-tl-y: 28%;
+  }
+
+  .sub-header {
+    width: var(--sub-header-width);
+    margin-top: var(--logo-banner-gap);
+    margin-bottom: 12%;
+  }
+
+  .sub-header-banner {
+    padding: 1.5% 12%;
+  }
+
+  /* 1280px grid: 2 columns */
+  .hall-grid {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    padding: 0 16px;
+    max-width: 1050px;
+    margin: 40px auto 0;
+    gap: 48px 40px;
+  }
+
+  .hall-badge {
+    transform: scale(0.95);
+    transform-origin: top left;
+    top: -55px;
+    left: 0px;
+  }
+}
+
+/* ── Small Desktop / Large Tablet (max 1080px) ── */
+@media (max-width: 1080px) {
   .curtain-img {
     object-fit: contain;
     object-position: top;
   }
 
   :root {
+    /* --- HERO SECTION (Logo, Tagline, Top Badge) --- */
     --hero-tagline-col: 100%;
-    --hero-logo-width: 96%;
-    --hero-logo-max: 96vw;
-    --hero-badge-width: min(200px, 38vw);
-    --hero-badge-top: 6%;
-    --hero-badge-left: 2%;
-    --hero-center-offset: -1%;
-    --hero-tagline-top: 14%;
-    --sub-header-width: 98%;
+    --hero-logo-width: 880px;
+    --hero-logo-max: none;
 
-    /* Mobile Overrides for responsiveness */
+    --hero-badge-width: min(300px, 25vw);
+    --hero-badge-top: 4%;
+    --hero-badge-left: 5%;
+
+    --hero-tagline-size: clamp(1.15rem, calc(100vw / 30), 2.5rem);
+    --hero-tagline-gap: 0.5rem;
+    --hero-tagline-right: auto;
+    --hero-tagline-top: 18%;
+
+    --hero-center-offset: clamp(-100px, -8vw, -10px);
+    --hero-inner-scale: 0.70;
+    --hero-inner-max-height: none;
+    --hero-inner-margin-bottom: 0vh;
+
+    --logo-banner-gap: -560px;
+
+    /* --- BACKGROUND SPARKLES AROUND HERO --- */
+    --sparkle-top: 18vh;
+    --sparkle-side: -18%;
+    --sparkle-mid-top: 45vh;
+    --sparkle-mid-side: -35%;
+    --sparkle-mid-width: 55%;
+    --sparkle-mid-squeeze: 0.6;
+    --sparkle-outer-top: 70vh;
+    --sparkle-outer-side: -50%;
+    --sparkle-width: 45%;
+
+    /* --- SUB-HEADER (The long banner below the main logo) --- */
+    --sub-header-offset: 2.5%;
+    --sub-header-width: 100%;
+    --sub-header-max-width: 100%;
     --sub-header-aspect-ratio: 10 / 1;
-    --sub-header-font-size: clamp(0.9rem, 3.5vw, 1.2rem);
-    --hall-btn-font-size: 1.4rem;
+    --sub-header-font-size: clamp(1.2rem, 3vw, 2.2rem);
+
+    /* --- HALL CARDS - RED RIBBON BANNER --- */
+    --hall-banner-font-size: 1.35rem;
+    --hall-banner-padding-y: 11px;
+    --hall-banner-padding-x: 20px;
+    --hall-banner-letter-spacing: 0.001em;
+    --hall-banner-inset: 14px;
+
+    /* --- HALL CARDS - YELLOW BUTTON --- */
+    --hall-btn-font-size: 1.6rem;
+    --hall-btn-padding-y: 6px;
+    --hall-btn-padding-x: 16px;
+    --hall-btn-arrow-size: 24px;
+    --hall-btn-arrow-gap: 16px;
+
+    /* --- HALL CARDS - DECORATIVE SPARKLES --- */
+    --hall-sparkle-size: 40px;
+    --hall-sparkle-x: 10px;
+    --hall-sparkle-y: 0px;
+
+    /* --- HALL CARDS - FRAME & SPACING --- */
+    --card-padding-top: 0px;
+    --card-padding-sides: 6px;
+    --card-padding-bottom: 0px;
+    --button-margin-bottom: 11px;
+    --card-frame-inset: -14px;
+
+    --grid-bottom-space: 80px;
+
+    /* --- HALL CARDS - PHOTO STARS --- */
+    --photo-star-tr-size: 65px;
+    --photo-star-tr-x: 95%;
+    --photo-star-tr-y: 4%;
+
+    --photo-star-tl-size: 40px;
+    --photo-star-tl-x: 1%;
+    --photo-star-tl-y: 28%;
   }
 
+
+
   .hero-inner {
-    padding: 0 3%;
-    padding-top: calc(var(--hero-badge-width) * 0.35);
-    --hero-inner-scale: 0.78;
-    --hero-inner-margin-bottom: -8vh;
-    --hero-inner-max-height: 58vh;
+    padding: 0 2%;
+    padding-top: calc(var(--hero-badge-width) * 0.15);
+  }
+
+  .hero-center {
+    display: flex;
+    justify-content: center;
   }
 
   .hero-tagline {
@@ -1116,22 +1430,492 @@ a {
 
   .sub-header {
     width: var(--sub-header-width);
-    margin-top: 3%;
-    margin-bottom: 1%;
+    margin-top: var(--logo-banner-gap);
+    margin-bottom: 3%;
   }
 
+  .sub-header-banner {
+    padding: 1% 10%;
+  }
+
+  /* 1080px grid: 2 columns */
   .hall-grid {
-    grid-template-columns: 1fr;
-    max-width: 400px;
-    margin: 0 auto;
-    margin-top: 40px;
-    gap: 70px 0;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    padding: 0 16px;
+    max-width: 980px;
+    margin: 100px auto 0;
+    gap: 48px 40px;
   }
 
   .hall-badge {
-    transform: scale(0.7);
+    transform: scale(0.9);
     transform-origin: top left;
-    top: -40px;
-    left: -10px;
+    top: -55px;
+    left: -2px;
+  }
+}
+
+/* ── Responsive Tablet (max 900px) ── */
+@media (max-width: 900px) {
+  .curtain-img {
+    object-fit: contain;
+    object-position: top;
+  }
+
+  :root {
+    /* --- HERO SECTION (Logo, Tagline, Top Badge) --- */
+    --hero-tagline-col: 100%;
+    --hero-logo-width: 850px;
+    --hero-logo-max: none;
+
+    /* Increase badge size and adjust position so it sits closer to the logo */
+    --hero-badge-width: min(280px, 30vw);
+    --hero-badge-top: 4%;
+    --hero-badge-left: 2%;
+
+    --hero-tagline-size: clamp(1.1rem, calc(100vw / 28), 2rem);
+    --hero-tagline-gap: 0.4rem;
+    --hero-tagline-right: auto;
+    --hero-tagline-top: 15%;
+
+    --hero-center-offset: clamp(-150px, -12vw, -20px);
+    --hero-inner-scale: 0.70;
+    --hero-inner-max-height: none;
+    --hero-inner-margin-bottom: 0vh;
+
+    /* Adjust gap to pull the banner up correctly under the scaled logo */
+    --logo-banner-gap: -540px;
+
+    /* --- BACKGROUND SPARKLES AROUND HERO --- */
+    --sparkle-top: 18vh;
+    --sparkle-side: -18%;
+    --sparkle-mid-top: 45vh;
+    --sparkle-mid-side: -35%;
+    --sparkle-mid-width: 55%;
+    --sparkle-mid-squeeze: 0.6;
+    --sparkle-outer-top: 70vh;
+    --sparkle-outer-side: -50%;
+    --sparkle-width: 45%;
+
+    /* --- SUB-HEADER (The long banner below the main logo) --- */
+    --sub-header-offset: 2.5%;
+    --sub-header-width: 96%;
+    --sub-header-max-width: 100%;
+    --sub-header-aspect-ratio: 8 / 1;
+    --sub-header-font-size: clamp(1.2rem, 3vw, 2rem);
+
+    /* --- HALL CARDS - RED RIBBON BANNER --- */
+    --hall-banner-font-size: 1.25rem;
+    --hall-banner-padding-y: 10px;
+    --hall-banner-padding-x: 16px;
+    --hall-banner-letter-spacing: 0.001em;
+    --hall-banner-inset: 12px;
+
+    /* --- HALL CARDS - YELLOW BUTTON --- */
+    --hall-btn-font-size: 1.4rem;
+    --hall-btn-padding-y: 6px;
+    --hall-btn-padding-x: 14px;
+    --hall-btn-arrow-size: 22px;
+    --hall-btn-arrow-gap: 12px;
+
+    /* --- HALL CARDS - DECORATIVE SPARKLES --- */
+    --hall-sparkle-size: 38px;
+    --hall-sparkle-x: 8px;
+    --hall-sparkle-y: -2px;
+
+    /* --- HALL CARDS - FRAME & SPACING --- */
+    --card-padding-top: 0px;
+    --card-padding-sides: 6px;
+    --card-padding-bottom: 0px;
+    --button-margin-bottom: 11px;
+    --card-frame-inset: -14px;
+
+    --grid-bottom-space: 80px;
+
+    /* --- HALL CARDS - PHOTO STARS --- */
+    --photo-star-tr-size: 60px;
+    --photo-star-tr-x: 95%;
+    --photo-star-tr-y: 4%;
+
+    --photo-star-tl-size: 38px;
+    --photo-star-tl-x: 1%;
+    --photo-star-tl-y: 28%;
+  }
+
+
+
+  .hero-inner {
+    padding: 0 2%;
+    padding-top: calc(var(--hero-badge-width) * 0.2);
+  }
+
+  .hero-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-tagline {
+    position: static;
+    transform: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2%;
+  }
+
+  .hero-tagline p {
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    line-height: 1.5;
+  }
+
+  .sub-header {
+    width: var(--sub-header-width);
+    margin-top: var(--logo-banner-gap);
+    margin-bottom: 2%;
+  }
+
+  .sub-header-banner {
+    padding: 1% 8%;
+  }
+
+  /* Tablet grid: 2 columns */
+  .hall-grid {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    padding: 0 13px;
+    /* Changed to 13px as requested */
+    max-width: 860px;
+    margin: 120px auto 0;
+    gap: 50px 32px;
+    /* 32px gap leaves a 4px visible gap between the expanded frames */
+  }
+
+  /* Adjust badge slightly for tablet */
+  .hall-badge {
+    transform: scale(0.85);
+    transform-origin: top left;
+    top: -50px;
+    left: -5px;
+  }
+}
+
+/* ── Mid-sized Tablet (max 800px) ── */
+@media (max-width: 800px) {
+  .hall-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ── Custom Sub-header Break (max 700px) ── */
+@media (max-width: 700px) {
+  :root {
+    --sub-header-aspect-ratio: 6 / 1;
+    --sub-header-font-size: clamp(1.3rem, 4vw, 2.2rem);
+  }
+
+  /* Give the text more room inside the banner on small screens */
+  .sub-header-banner {
+    padding: 1% 5%;
+  }
+
+  /* Make sub-header text two lines exclusively on mobile */
+  .mobile-br {
+    display: block;
+  }
+
+  .sub-header-text {
+    white-space: normal;
+    line-height: 1.3;
+    text-align: center;
+    transform: none;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* ── Large Mobile (max 576px) ── */
+@media (max-width: 576px) {
+  :root {
+    /* --- HERO SECTION (Logo, Tagline, Top Badge) --- */
+    --hero-tagline-col: 100%;
+    --hero-logo-width: 115vw;
+    --hero-logo-max: 115vw;
+
+    --hero-badge-width: min(220px, 38vw);
+    --hero-badge-top: 6%;
+    --hero-badge-left: 2%;
+
+    --hero-tagline-size: clamp(1rem, calc(100vw / 28), 1.5rem);
+    --hero-tagline-gap: 0.3rem;
+    --hero-tagline-right: auto;
+    --hero-tagline-top: 14%;
+
+    --hero-center-offset: -5%;
+    --hero-inner-scale: 0.80;
+    --hero-inner-max-height: none;
+    --hero-inner-margin-bottom: 0vh;
+
+    --logo-banner-gap: -260px;
+
+    /* --- BACKGROUND SPARKLES AROUND HERO --- */
+    --sparkle-top: 18vh;
+    --sparkle-side: -18%;
+    --sparkle-mid-top: 45vh;
+    --sparkle-mid-side: -35%;
+    --sparkle-mid-width: 55%;
+    --sparkle-mid-squeeze: 0.6;
+    --sparkle-outer-top: 70vh;
+    --sparkle-outer-side: -50%;
+    --sparkle-width: 45%;
+
+    /* --- SUB-HEADER (The long banner below the main logo) --- */
+    --sub-header-offset: 2.5%;
+    --sub-header-width: 98%;
+    --sub-header-max-width: 100%;
+    --sub-header-font-size: clamp(1.1rem, 3.8vw, 1.6rem);
+
+    /* --- HALL CARDS - RED RIBBON BANNER --- */
+    --hall-banner-font-size: 1.3rem;
+    --hall-banner-padding-y: 10px;
+    --hall-banner-padding-x: 18px;
+    --hall-banner-letter-spacing: 0.001em;
+    --hall-banner-inset: 12px;
+
+    /* --- HALL CARDS - YELLOW BUTTON --- */
+    --hall-btn-font-size: 1.4rem;
+    --hall-btn-padding-y: 6px;
+    --hall-btn-padding-x: 14px;
+    --hall-btn-arrow-size: 24px;
+    --hall-btn-arrow-gap: 12px;
+
+    /* --- HALL CARDS - DECORATIVE SPARKLES --- */
+    --hall-sparkle-size: 35px;
+    --hall-sparkle-x: 6px;
+    --hall-sparkle-y: -4px;
+
+    /* --- HALL CARDS - FRAME & SPACING --- */
+    --card-padding-top: 0px;
+    --card-padding-sides: 6px;
+    --card-padding-bottom: 0px;
+    --button-margin-bottom: 11px;
+    --card-frame-inset: -12px;
+
+    --grid-bottom-space: 70px;
+
+    /* --- HALL CARDS - PHOTO STARS --- */
+    --photo-star-tr-size: 55px;
+    --photo-star-tr-x: 95%;
+    --photo-star-tr-y: 4%;
+
+    --photo-star-tl-size: 35px;
+    --photo-star-tl-x: 1%;
+    --photo-star-tl-y: 28%;
+  }
+
+  /* Revert flexbox for mobile so the 115vw scaling hack works properly */
+  .hero-center {
+    display: block;
+  }
+
+  /* Fix for centering the logo when its width is set to greater than 100% */
+  .hero-logo {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Re-enable the logo-banner-gap variable for mobile */
+  .sub-header {
+    margin-top: var(--logo-banner-gap);
+  }
+
+  /* The text break layout is now inherited from the 650px breakpoint! */
+
+  /* Adjust this to change the gap between the banner and the first card! */
+  .hall-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    gap: 55px 0;
+  }
+}
+
+/* ── iPhone SE & 12 Pro (max 400px) ── */
+@media (max-width: 400px) {
+  :root {
+    /* --- HERO SECTION (Logo, Tagline, Top Badge) --- */
+    --hero-tagline-col: 100%;
+    /* Width of the column holding the vertical text */
+    --hero-logo-width: 115vw;
+    /* Width of the main center logo */
+    --hero-logo-max: 115vw;
+    /* Maximum width the main logo can take */
+
+    --hero-badge-width: min(200px, 38vw);
+    /* Size of the round "Certified" badge (top left) */
+    --hero-badge-top: 6%;
+    /* Top position of the badge */
+    --hero-badge-left: 2%;
+    /* Left position of the badge */
+
+    --hero-tagline-size: clamp(0.9rem, calc(100vw / 30), 1.2rem);
+    /* Font size of the vertical text */
+    --hero-tagline-gap: 0.3rem;
+    /* Space between the two lines of vertical text */
+    --hero-tagline-right: auto;
+    /* Right alignment for vertical text */
+    --hero-tagline-top: 14%;
+    /* Top position of the vertical text */
+
+    --hero-center-offset: -10%;
+    /* Tweaks the vertical position of the logo */
+    --hero-inner-scale: 0.78;
+    /* Scales down the entire hero graphics so they fit on small screens */
+    --hero-inner-max-height: none;
+    /* Removed the cap so the box can grow when you push the logo down! */
+    --hero-inner-margin-bottom: 0vh;
+    /* Reset this to 0 so it stops pulling the banner up */
+
+    --logo-banner-gap: -235px;
+    /* Gap between the hero logo and the long sub-header banner below it, set using a fixed pixel value */
+
+    /* --- BACKGROUND SPARKLES AROUND HERO --- */
+    --sparkle-top: 18vh;
+    /* Top position for top-level sparkles */
+    --sparkle-side: -18%;
+    /* Left/Right position for top-level sparkles */
+    --sparkle-mid-top: 45vh;
+    /* Top position for middle sparkles */
+    --sparkle-mid-side: -35%;
+    /* Side position for middle sparkles */
+    --sparkle-mid-width: 55%;
+    /* Size of middle sparkles */
+    --sparkle-mid-squeeze: 0.6;
+    /* Squish factor to make middle sparkles oval */
+    --sparkle-outer-top: 70vh;
+    /* Top position for bottom/outer sparkles */
+    --sparkle-outer-side: -50%;
+    /* Side position for outer sparkles */
+    --sparkle-width: 45%;
+    /* Default size of sparkles */
+
+    /* --- SUB-HEADER (The long banner below the main logo) --- */
+    --sub-header-offset: 2.5%;
+    --sub-header-width: 98%;
+    /* How wide the sub-header is */
+    --sub-header-max-width: 100%;
+    /* Max width of the sub-header */
+    --sub-header-aspect-ratio: 5 / 1;
+    /* Ratio of Width vs Height (make the first number larger for a thinner banner) */
+    --sub-header-font-size: clamp(0.9rem, 3.5vw, 1.35rem);
+
+
+    /* Font size inside the sub-header banner */
+
+    /* --- HALL CARDS - RED RIBBON BANNER --- */
+    --hall-banner-font-size: 1.1rem;
+    /* Text size for the hall name in the red ribbon */
+    --hall-banner-padding-y: 8px;
+    /* Vertical padding (height) inside the red ribbon */
+    --hall-banner-padding-x: 16px;
+    /* Horizontal padding (width) inside the red ribbon */
+    --hall-banner-letter-spacing: 0.001em;
+    /* Space between letters in the red ribbon */
+    --hall-banner-inset: 10px;
+    /* How far the ribbon is pushed in to allow the ribbon "tails" on the side */
+
+    /* --- HALL CARDS - YELLOW BUTTON --- */
+    --hall-btn-font-size: 1.2rem;
+    /* Text size of "店舗情報" inside the button */
+    --hall-btn-padding-y: 4px;
+    /* Vertical padding (height) of the button */
+    --hall-btn-padding-x: 12px;
+    /* Horizontal padding (width) of the button */
+    --hall-btn-arrow-size: 20px;
+    /* Size of the black arrow icon on the button */
+    --hall-btn-arrow-gap: 10px;
+    /* Space between the button text and the arrow */
+
+    /* --- HALL CARDS - DECORATIVE SPARKLES --- */
+    --hall-sparkle-size: 30px;
+    /* Size of the little stars on the red ribbon banner */
+    --hall-sparkle-x: 5px;
+    /* Horizontal tweak for red ribbon stars */
+    --hall-sparkle-y: -5px;
+    /* Vertical tweak for red ribbon stars */
+
+    /* --- HALL CARDS - FRAME & SPACING --- */
+    --card-padding-top: 0px;
+    /* Top gap between photo and the frame border */
+    --card-padding-sides: 6px;
+    /* Side gap between photo and the frame border */
+    --card-padding-bottom: 0px;
+    /* Bottom gap between photo and the frame border */
+    --button-margin-bottom: 11px;
+    /* Space underneath the yellow button */
+    --card-frame-inset: -10px;
+    /* Adjusts how far the gold frame expands outside the card */
+
+    /* Space below the entire grid of cards at the bottom of the page */
+    --grid-bottom-space: 60px;
+
+    /* --- HALL CARDS - PHOTO STARS --- */
+    --photo-star-tr-size: 45px;
+    /* Size of the top-right star on the hall photo */
+    --photo-star-tr-x: 95%;
+    /* Horizontal position of the top-right star */
+    --photo-star-tr-y: 4%;
+    /* Vertical position of the top-right star */
+
+    --photo-star-tl-size: 30px;
+    /* Size of the top-left star on the hall photo */
+    --photo-star-tl-x: 1%;
+    /* Horizontal position of the top-left star */
+    --photo-star-tl-y: 28%;
+    /* Vertical position of the top-left star */
+  }
+
+  /* Fix for centering the logo when its width is set to greater than 100% */
+  .hero-logo {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Re-enable the logo-banner-gap variable for mobile */
+  .sub-header {
+    margin-top: var(--logo-banner-gap);
+  }
+
+  /* Give the text more room inside the banner on small screens */
+  .sub-header-banner {
+    padding: 1% 5%;
+  }
+
+  /* Make sub-header text two lines exclusively on mobile */
+  .mobile-br {
+    display: block;
+  }
+
+  .sub-header-text {
+    white-space: normal;
+    line-height: 1.3;
+    text-align: center;
+    transform: none;
+    letter-spacing: 0.05em;
+    /* Shrink letter spacing so it fits cleanly */
+    /* Remove horizontal manual adjustment for mobile */
+  }
+
+  /* Adjust this to change the gap between the banner and the first card! */
+  .hall-grid {
+    margin-top: 180px;
+    gap: 45px 0;
+    /* Reduced from 70px to bring cards closer together */
   }
 }
