@@ -11,7 +11,11 @@
 </head>
 <body>
   <div class="page">
-    <img src="images/hero-bg.png" alt="" class="curtain-img">
+    <picture>
+      <source media="(max-width: 767px)" srcset="images/hero-bg-mobile.png">
+      <source media="(max-width: 1024px)" srcset="images/hero-bg-tablet.png">
+      <img src="images/hero-bg.png" alt="" class="curtain-img">
+    </picture>
     <div class="sparkles" aria-hidden="true"></div>
     <div class="light-flares" aria-hidden="true"></div>
 
@@ -80,7 +84,7 @@
 
         <div class="sub-header">
           <div class="sub-header-banner">
-            <span class="sub-header-text">ハカセが自信を持って推薦する優良ホール</span>
+            <span class="sub-header-text">ハカセが自信を持って推薦する<br class="mobile-br">優良ホール</span>
           </div>
         </div>
       </header>
